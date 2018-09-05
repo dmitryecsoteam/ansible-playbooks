@@ -1,0 +1,7 @@
+- name: Write the new host key to known hosts
+  connection: local
+  shell: "ssh-keyscan -H {{ inventory_hostname }} >> ~/.ssh/known_hosts"
+- name: Set up authorized_keys
+  authorized_key:
+    user: ansible_user
+    key: "{{ lookup('file', '/home/ansible_user/.ssh/id_rsa.pub') }}"

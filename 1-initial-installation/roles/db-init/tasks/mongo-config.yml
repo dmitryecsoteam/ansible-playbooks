@@ -1,0 +1,10 @@
+---
+
+- name: Copy mongod.conf
+  copy:
+    src: mongod.conf
+    dest: /etc/mongod.conf
+    mode: 0644
+    owner: root
+    group: root
+  notify: restart mongo

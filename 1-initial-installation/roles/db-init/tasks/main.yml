@@ -1,0 +1,7 @@
+---
+
+- name: Install mongodb
+  import_tasks: mongo-installation-4.0.yml
+  
+- name: Config mongo
+  import_tasks: mongo-config.yml
