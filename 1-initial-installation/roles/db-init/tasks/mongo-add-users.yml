@@ -1,0 +1,19 @@
+---
+
+- name: add admin user
+  mongodb_user:
+    database: admin
+    name: "{{ mongo_admin }}"
+    password: "{{ mongo_admin_password }}"
+    roles: "userAdminAnyDatabase"
+  tags: add-mongo-admin
+  
+- name: add ECSO-DB user
+  mongodb_user:
+    database: "{{ db_name }}"
+    name: "{{ mongo_user }}"
+    password: "{{ mongo_user_password }}"
+    roles: "read"
+    login_user: "{{ mongo_admin }}"
+    login_password: "{{ mongo_admin_password }}"
+  tags: add-mongo-user

@@ -1,0 +1,8 @@
+# Variables for dev DB mongo server
+
+mongo_user: ecso_user
+mongo_user_password: Qwerty12
+mongo_admin: ecso_admin
+mongo_admin_password: Qwerty123
+
+db_name: ECSO-DB

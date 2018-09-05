@@ -1,0 +1,7 @@
+---
+
+- name: Create ECSO database
+  command: mongo --eval "db = db.getSiblingDB('"{{ db_name }}"').createCollection('databaseVersioning')"
+
+- name: Add 0 version
+  command: mongo --eval "db.databaseVersioning.insertOne({_id":" NumberInt(0), notes":" 'Clean database'})" "{{ db_name }}"

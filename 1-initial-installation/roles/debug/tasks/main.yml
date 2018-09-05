@@ -1,0 +1,8 @@
+---
+
+- name: run debug msg
+  debug:
+    var: "{{ item }}"
+  with_items:
+    - env
+    - serv

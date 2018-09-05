@@ -3,5 +3,17 @@
 - name: Install mongodb
   import_tasks: mongo-installation-4.0.yml
   
+- name: Install pymongo
+  import_tasks: pip-pymongo-installation.yml
+  tags: install-pymongo
+  
+- name: Create database
+  import_tasks: mongo-create-database.yml
+  tags: create-database
+  
+- name: Add users
+  import_tasks: mongo-add-users.yml
+  
 - name: Config mongo
   import_tasks: mongo-config.yml
+  tags: mongod-conf

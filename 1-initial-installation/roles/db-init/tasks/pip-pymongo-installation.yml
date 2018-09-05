@@ -1,0 +1,15 @@
+---
+
+- name: Install pip
+  apt:
+    name: python-pip
+    state: present
+    update_cache: yes
+
+- name: Install pymongo
+  pip:
+    name: pymongo
+    state: present
+    
+    
+    

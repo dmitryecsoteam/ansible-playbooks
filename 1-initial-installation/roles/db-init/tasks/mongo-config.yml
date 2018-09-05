@@ -1,6 +1,6 @@
 ---
 
-- name: Copy mongod.conf
+- name: Enable auth and open connections for all IPs
   copy:
     src: mongod.conf
     dest: /etc/mongod.conf
