@@ -13,6 +13,7 @@
   
 - name: Add users
   import_tasks: mongo-add-users.yml
+  tags: add-users
   
 - name: Config mongo
   import_tasks: mongo-config.yml

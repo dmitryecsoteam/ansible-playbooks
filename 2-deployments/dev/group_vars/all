@@ -4,6 +4,5 @@ env: dev
 # Versions of components
 db:
   version: 4
-  # path to db scripts on ansible machine
-  path: /vagrant/db_scripts/
+  repository: git@bitbucket.org:ecsoteam/db_scripts.git
 

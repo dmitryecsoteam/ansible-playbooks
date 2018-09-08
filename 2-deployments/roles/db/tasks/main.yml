@@ -7,13 +7,7 @@
 - name: Save in variable
   set_fact:
     result_var: "{{ result.stdout | from_json }}"
-    
-- name: Synchronize db_scripts folders
-  synchronize:
-    src: "{{ db.path }}"
-    dest: /etc/db_scripts/
-  when: result_var._id < db.version
-  
+
 - name: Make local db.version variable
   set_fact:
     version_local: "{{ db.version }}"
@@ -22,10 +16,19 @@
   set_fact:
     version_local: "{{ result_var._id + 1 }}"
   when: result_var._id >= db.version
+  
+- name: Clone git repository
+  git:
+    repo: git@bitbucket.org:ecsoteam/db_scripts.git
+    accept_hostkey: yes
+    clone: yes
+    dest: /home/ansible_user/db_scripts
+  become: no
+  when: result_var._id < db.version
 
 - name: Add filenames to variables list 1
   find:
-    paths: /etc/db_scripts
+    paths: /home/ansible_user/db_scripts
     patterns: "{{ item }}-*.js"
   with_sequence: start="{{ result_var._id + 1 }}" end="{{ version_local }}" format=%d
   register: output

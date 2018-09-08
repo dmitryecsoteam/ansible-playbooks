@@ -1,12 +1,22 @@
 ---
 
+- name: check if admin user exists
+  shell: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --quiet --eval "db.getUsers()" admin | grep -om1 "{{ mongo_admin }}"
+  ignore_errors: yes
+  register: admin
+  
+- name: check if db user exists
+  shell: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --quiet --eval "db.getUsers()" "{{ db_name }}" | grep -om1 "{{ mongo_user }}"
+  ignore_errors: yes
+  register: user
+
 - name: add admin user
   mongodb_user:
     database: admin
     name: "{{ mongo_admin }}"
     password: "{{ mongo_admin_password }}"
     roles: "root"
-  tags: add-mongo-admin
+  when: admin.stdout == ""
   
 - name: add ECSO-DB user
   mongodb_user:
@@ -16,4 +26,4 @@
     roles: "read"
     login_user: "{{ mongo_admin }}"
     login_password: "{{ mongo_admin_password }}"
-  tags: add-mongo-user
+  when: user.stdout == ""

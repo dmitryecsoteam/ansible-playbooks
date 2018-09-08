@@ -1,0 +1,9 @@
+---
+
+- name: Find ssh-agent processes
+  shell: "ps -ef | grep -v grep | grep -w ssh-agent | awk '{print $2}'"
+  register: running_processes
+  
+- name: Kill processes
+  shell: "kill {{ item }}"
+  with_items: "{{ running_processes.stdout_lines }}"
