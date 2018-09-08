@@ -5,7 +5,7 @@
     database: admin
     name: "{{ mongo_admin }}"
     password: "{{ mongo_admin_password }}"
-    roles: "userAdminAnyDatabase"
+    roles: "root"
   tags: add-mongo-admin
   
 - name: add ECSO-DB user

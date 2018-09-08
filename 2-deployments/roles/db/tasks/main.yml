@@ -1,0 +1,49 @@
+---
+
+- name: Current version of database
+  command: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --quiet --eval "db.databaseVersioning.find().sort({_id":" -1}).limit(1)" "{{ db_name }}"
+  register: result
+  
+- name: Save in variable
+  set_fact:
+    result_var: "{{ result.stdout | from_json }}"
+    
+- name: Synchronize db_scripts folders
+  synchronize:
+    src: "{{ db.path }}"
+    dest: /etc/db_scripts/
+  when: result_var._id < db.version
+  
+- name: Make local db.version variable
+  set_fact:
+    version_local: "{{ db.version }}"
+
+- name: Correct local version variable 
+  set_fact:
+    version_local: "{{ result_var._id + 1 }}"
+  when: result_var._id >= db.version
+
+- name: Add filenames to variables list 1
+  find:
+    paths: /etc/db_scripts
+    patterns: "{{ item }}-*.js"
+  with_sequence: start="{{ result_var._id + 1 }}" end="{{ version_local }}" format=%d
+  register: output
+  when: result_var._id < db.version
+      
+- name: Add filenames to variables list 2
+  set_fact:
+    fileslist="{{ fileslist|default([]) + [ item.files[0].path ] }}"
+  loop: "{{ output.results }}"
+  when: result_var._id < db.version
+
+- name: Print list of js files
+  debug:
+    var: fileslist
+  when: result_var._id < db.version
+
+- name: Run js files in mongo
+  command: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin "{{ db_name }}" "{{ item }}"
+  loop: "{{ fileslist }}"
+  when: result_var._id < db.version
+
