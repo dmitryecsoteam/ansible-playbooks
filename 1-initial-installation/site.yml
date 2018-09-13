@@ -6,3 +6,11 @@
   roles:
     - common-init
     - db-init
+
+- hosts: webapp
+  become: yes
+  gather_facts: yes
+  roles:
+    - common-init
+    - webapp-init
+  tags: install-webapp

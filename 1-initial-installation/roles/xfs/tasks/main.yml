@@ -1,0 +1,40 @@
+---
+# This playbook doesn't work
+# On vagrant existing partition occupies all the disk
+# Need to resize this partition first: https://github.com/ansible/ansible/issues/23914
+ 
+- name: Get device name
+  set_fact:
+    device_name: "{{ item.key }}"
+  no_log: True
+  with_dict: "{{ ansible_devices }}"
+  when: "item.value.host.startswith('SATA')"
+  
+- name: Install xfsprogs
+  apt:
+    name: xfsprogs
+    update_cache: yes
+  when: device_name is defined
+    
+- name: Create partition
+  parted:
+    device: "/dev/{{ device_name }}"
+    number: 1
+    flags: [ lvm ]
+    state: present
+
+- name: Create file system
+  filesystem:
+    fstype: xfs
+    dev: /dev/sda1
+    force: yes
+    
+- name: Mount device
+  mount:
+    name: /mongodb
+    src: /dev/sda1
+    opts: noatime
+    fstype: xfs
+    state: mounted
+
+    

@@ -5,3 +5,9 @@
   gather_facts: yes
   roles:
     - db
+
+- hosts: webapp
+  become: yes
+  gather_facts: yes
+  roles:
+    - web

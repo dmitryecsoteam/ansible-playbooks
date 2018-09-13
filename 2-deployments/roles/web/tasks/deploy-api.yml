@@ -1,0 +1,33 @@
+---
+
+- name: Clone git repository
+  git:
+    repo: "{{ api_graphql.repository }}"
+    accept_hostkey: yes
+    clone: yes
+    dest: /home/ansible_user/api-graphql
+    version: "{{ api_graphql.version }}"
+    force: yes
+  become: no
+  
+- name: Replace Dockerfile
+  template:
+    src: Dockerfile-api.j2
+    dest: /home/ansible_user/api-graphql/Dockerfile
+    owner: ansible_user
+    mode: 0644
+
+- name: Build docker image
+  docker_image:
+    name: api-graphql
+    tag: "{{ api_graphql.version }}"
+    path: /home/ansible_user/api-graphql
+
+- name: Run built image
+  docker_container:
+    name: api-graphql
+    image: "api-graphql:{{ api_graphql.version }}"
+    state: started
+    restart_policy: "always"
+    ports:
+      - "{{ api_port }}:{{ api_port }}"

@@ -4,7 +4,7 @@
   import_tasks: mongo-installation-4.0.yml
   
 - name: Install pymongo
-  import_tasks: pip-pymongo-installation.yml
+  import_tasks: pymongo.yml
   tags: install-pymongo
   
 - name: Create database

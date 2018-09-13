@@ -1,0 +1,7 @@
+---
+
+- name: Install docker
+  import_tasks: docker-installation.yml
+
+- name: Install docker-py
+  import_tasks: docker-py.yml

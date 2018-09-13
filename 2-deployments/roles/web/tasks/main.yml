@@ -1,0 +1,6 @@
+---
+
+- name: Deploy api
+  import_tasks: deploy-api.yml
+  tags: deploy-api
+

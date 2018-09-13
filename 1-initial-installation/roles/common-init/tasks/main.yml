@@ -16,3 +16,10 @@
       AllowAgentForwarding yes
   notify: restart ssh
   tags: sshd_config
+  
+- name: Install pip
+  apt:
+    name: python-pip
+    state: present
+    update_cache: yes
+  tags: install-pip

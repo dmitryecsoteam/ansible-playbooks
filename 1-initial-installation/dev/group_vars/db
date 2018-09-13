@@ -2,6 +2,8 @@
 
 mongo_user: ecso_user
 mongo_user_password: Qwerty12
+mongo_write_user: ecso_writer
+mongo_write_user_password: Qwerty12
 mongo_admin: ecso_admin
 mongo_admin_password: Qwerty123
 

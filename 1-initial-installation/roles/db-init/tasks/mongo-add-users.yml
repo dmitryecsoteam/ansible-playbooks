@@ -5,10 +5,15 @@
   ignore_errors: yes
   register: admin
   
-- name: check if db user exists
+- name: check if db read-only user exists
   shell: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --quiet --eval "db.getUsers()" "{{ db_name }}" | grep -om1 "{{ mongo_user }}"
   ignore_errors: yes
-  register: user
+  register: readuser
+  
+- name: check if db write user exists
+  shell: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --quiet --eval "db.getUsers()" "{{ db_name }}" | grep -om1 "{{ mongo_write_user }}"
+  ignore_errors: yes
+  register: writeuser
 
 - name: add admin user
   mongodb_user:
@@ -18,7 +23,7 @@
     roles: "root"
   when: admin.stdout == ""
   
-- name: add ECSO-DB user
+- name: add ECSO-DB read-only user
   mongodb_user:
     database: "{{ db_name }}"
     name: "{{ mongo_user }}"
@@ -26,4 +31,14 @@
     roles: "read"
     login_user: "{{ mongo_admin }}"
     login_password: "{{ mongo_admin_password }}"
-  when: user.stdout == ""
+  when: readuser.stdout == ""
+  
+- name: add ECSO-DB write user
+  mongodb_user:
+    database: "{{ db_name }}"
+    name: "{{ mongo_write_user }}"
+    password: "{{ mongo_write_user_password }}"
+    roles: "readWrite"
+    login_user: "{{ mongo_admin }}"
+    login_password: "{{ mongo_admin_password }}"
+  when: writeuser.stdout == ""

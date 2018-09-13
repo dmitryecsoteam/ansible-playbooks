@@ -1,8 +1,34 @@
 # Variables for dev environment
 env: dev
 
-# Versions of components
+### Versions of components to be deployed ###
+
 db:
-  version: 4
+  version: 10
   repository: git@bitbucket.org:ecsoteam/db_scripts.git
 
+api_graphql:
+  version: 1.1.6
+  repository: git@bitbucket.org:ecsoteam/api-graphql.git
+  
+
+
+
+
+
+  
+#####################################################
+
+### Common variables for all apps ###
+
+## For MONGODB connection ##
+mongo_host: 192.168.0.42
+mongo_port: 27017
+db_name: ECSO-DB
+# Read-only user
+mongo_user: ecso_user
+mongo_user_password: Qwerty12
+
+## For API-GRAPHQL ##
+api_host: 192.168.0.43
+api_port: 4000
