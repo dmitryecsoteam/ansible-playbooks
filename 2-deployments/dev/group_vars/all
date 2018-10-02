@@ -8,7 +8,7 @@ db:
   repository: git@bitbucket.org:ecsoteam/db_scripts.git
 
 api_graphql:
-  version: 1.1.6
+  version: 1.1.7
   repository: git@bitbucket.org:ecsoteam/api-graphql.git
   
 
@@ -32,3 +32,4 @@ mongo_user_password: Qwerty12
 ## For API-GRAPHQL ##
 api_host: 192.168.0.43
 api_port: 4000
+api_server_host: 0.0.0.0
