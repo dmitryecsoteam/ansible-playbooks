@@ -28,7 +28,7 @@
 
 - name: Add filenames to variables list 1
   find:
-    paths: /home/ansible_user/db_scripts
+    paths: "/home/ansible_user/db_scripts/{{ env }}"
     patterns: "{{ item }}-*.js"
   with_sequence: start="{{ result_var._id + 1 }}" end="{{ version_local }}" format=%d
   register: output

@@ -4,7 +4,7 @@ env: dev
 ### Versions of components to be deployed ###
 
 db:
-  version: 10
+  version: 11
   repository: git@bitbucket.org:ecsoteam/db_scripts.git
 
 api_graphql:
