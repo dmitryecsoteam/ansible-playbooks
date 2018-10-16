@@ -15,7 +15,7 @@ RUN npm install --only=production
 COPY src /app
 
 # Define environment variables
-ENV MONGO_HOST={{ mongo_host }} MONGO_PORT={{ mongo_port }} MONGO_DB={{ db_name }} MONGO_USER={{ mongo_user }} MONGO_PASS={{ mongo_user_password }} API_PORT={{ api_port }} API_SERVER_HOST={{ api_server_host }}
+ENV NODE_ENV=production MONGO_HOST={{ mongo_host }} MONGO_PORT={{ mongo_port }} MONGO_DB={{ db_name }} MONGO_USER={{ mongo_user }} MONGO_PASS={{ mongo_user_password }} API_PORT={{ api_port }} API_SERVER_HOST={{ api_server_host }} API_SERVER_CORS={{ api_server_cors }}
 
 # Run node
 CMD [ "node", "index.js" ]
