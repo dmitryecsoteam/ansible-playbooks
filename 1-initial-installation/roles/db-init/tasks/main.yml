@@ -18,3 +18,7 @@
 - name: Config mongo
   import_tasks: mongo-config.yml
   tags: mongod-conf
+
+- name: Create preprod database
+  import_tasks: mongo-create-database-preprod.yml
+  tags: create-preprod

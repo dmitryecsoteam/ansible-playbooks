@@ -1,0 +1,14 @@
+---
+
+- name: Check for existing preprod db on server
+  shell: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --eval "db.getMongo().getDBNames()" | grep -o "{{ db_name_preprod }}"
+  ignore_errors: yes
+  register: database
+  
+- name: Create ECSO preprod database
+  command: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --eval "db = db.getSiblingDB('"{{ db_name_preprod }}"').createCollection('databaseVersioning')"
+  when: database.stdout == ""
+
+- name: Add 0 version
+  command: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin "{{ db_name_preprod }}" --eval "db.databaseVersioning.insertOne({_id":" NumberInt(0), notes":" 'Clean database'})" 
+  when: database.stdout == ""

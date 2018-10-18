@@ -1,7 +1,7 @@
 ---
 
 - name: Current version of database
-  command: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin --quiet --eval "db.databaseVersioning.find().sort({_id":" -1}).limit(1)" "{{ mongo_host }}:{{ mongo_port }}/{{ db_name }}"
+  command: mongo "{{ mongo_host }}:{{ mongo_port }}/{{ db_name }}" -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --quiet --eval "db.databaseVersioning.find().sort({_id":" -1}).limit(1)"
   register: result
   
 - name: Save in variable
@@ -46,7 +46,7 @@
   when: result_var._id < db.version
 
 - name: Run js files in mongo
-  command: mongo -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" --authenticationDatabase admin "{{ mongo_host }}:{{ mongo_port }}/{{ db_name }}" "{{ item }}"
+  command: mongo "{{ mongo_host }}:{{ mongo_port }}/{{ db_name }}" -u "{{ mongo_admin }}" -p "{{ mongo_admin_password }}" "{{ item }}"
   loop: "{{ fileslist }}"
   when: result_var._id < db.version
 

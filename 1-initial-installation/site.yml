@@ -14,3 +14,11 @@
     - common-init
     - webapp-init
   tags: install-webapp
+
+- hosts: command
+  become: yes
+  gather_facts: yes
+  roles:
+    - common-init
+    - command-init
+  tags: install-command

@@ -1,0 +1,16 @@
+# Variables for dev environment
+env: preprod
+
+db:
+  version: 1
+  repository: git@bitbucket.org:ecsoteam/db_scripts.git
+
+
+#####################################################
+
+## For MONGODB connection ##
+mongo_admin: ecso_admin
+mongo_admin_password: Qwerty123
+mongo_host: 192.168.0.42
+mongo_port: 27017
+db_name: ECSO-DB-PREPROD

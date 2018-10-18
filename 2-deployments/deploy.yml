@@ -11,3 +11,10 @@
   gather_facts: yes
   roles:
     - web
+
+- hosts: command
+  become: yes
+  gather_facts: yes
+  roles:
+    - db
+  tags: deploy-command

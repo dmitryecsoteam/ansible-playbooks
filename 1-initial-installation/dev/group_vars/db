@@ -8,3 +8,4 @@ mongo_admin: ecso_admin
 mongo_admin_password: Qwerty123
 
 db_name: ECSO-DB
+db_name_preprod: ECSO-DB-PREPROD

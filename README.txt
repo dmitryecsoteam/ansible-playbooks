@@ -17,10 +17,20 @@ Login to ansible machine (on DEV: 192.168.0.41:22 or 127.0.0.1:2222) with ansibl
 	   
 
 	   
-2. Deployments
+2. Deployments (for local VMs)
 	a. > cd /vagrant/ansible-playbooks/2-deployments
 	b. Fill components versions in {environment}/group_vars/all file
 	c. Run deploy.yml playbook, but first start ssh agent:
 	   > eval $(ssh-agent -s)
 	   > ssh-add ~/.ssh/id_rsa
 	   > ansible-playbook -i dev deploy.yml
+
+
+
+3. Cloud (WEB)
+	a. > cd /vagrant/ansible-playbooks/3-cloud
+	b. Fill components versions in prod/group_vars/all file
+	c. Run deploy.yml playbook, but first start ssh agent:
+	   > eval $(ssh-agent -s)
+	   > ssh-add ~/.ssh/id_rsa
+	   > ansible-playbook -i prod deploy.yml
