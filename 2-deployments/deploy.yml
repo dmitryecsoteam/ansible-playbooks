@@ -5,6 +5,7 @@
   gather_facts: yes
   roles:
     - db
+  tags: deploy-db
 
 - hosts: webapp
   become: yes

@@ -23,7 +23,7 @@ Login to ansible machine (on DEV: 192.168.0.41:22 or 127.0.0.1:2222) with ansibl
 	c. Run deploy.yml playbook, but first start ssh agent:
 	   > eval $(ssh-agent -s)
 	   > ssh-add ~/.ssh/id_rsa
-	   > ansible-playbook -i dev deploy.yml
+	   > ansible-playbook -i dev deploy.yml   OR with tags: ansible-playbook -i dev deploy.yml --tags "deploy-db"
 
 
 
