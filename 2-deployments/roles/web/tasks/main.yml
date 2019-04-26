@@ -4,3 +4,7 @@
   import_tasks: deploy-api.yml
   tags: deploy-api
 
+- name: Deploy rotate-travels
+  import_tasks: deploy-rotate-travels.yml
+  tags: deploy-rotate-travels
+

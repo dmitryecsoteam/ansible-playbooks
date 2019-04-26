@@ -4,12 +4,17 @@ env: dev
 ### Versions of components to be deployed ###
 
 db:
-  version: 18
+  version: 19
   repository: git@bitbucket.org:ecsoteam/db_scripts.git
 
 api_graphql:
-  version: 1.2.2
+  version: 1.3.0
   repository: git@bitbucket.org:ecsoteam/api-graphql.git
+
+rotate_travels:
+  version: 1.0.9
+  repository: git@bitbucket.org:ecsoteam/rotate-travels.git
+  scheduler: '1 21 * * *'
   
 
 
@@ -28,6 +33,8 @@ db_name: ECSO-DB
 # Read-only user
 mongo_user: ecso_user
 mongo_user_password: Qwerty12
+mongo_writer: ecso_writer
+mongo_writer_password: Qwerty12
 
 ## For API-GRAPHQL ##
 api_host: 192.168.0.43

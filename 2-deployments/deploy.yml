@@ -12,6 +12,7 @@
   gather_facts: yes
   roles:
     - web
+  tags: deploy-web
 
 - hosts: command
   become: yes
