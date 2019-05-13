@@ -43,5 +43,6 @@ Login to ansible machine (on DEV: 192.168.0.41:22 or 127.0.0.1:2222) with ansibl
 sudo docker ps
 sudo docker stop ID
 sudo docker logs ID
-sudo docker exec -it ID /bin/ash - open command line inside docker ALPINE
-sudo docker system prune -a - remove stoped containers and unused images
+sudo docker exec -it ID /bin/ash     - open command line inside docker ALPINE
+sudo docker system prune -a     - remove stoped containers and unused images
+sudo docker images -a     - list all images in system

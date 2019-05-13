@@ -14,7 +14,7 @@ api_graphql:
 rotate_travels:
   version: 1.0.9
   repository: git@bitbucket.org:ecsoteam/rotate-travels.git
-  scheduler: '1 21 * * *'
+  scheduler: '*/30 * * * *'
   
 
 
