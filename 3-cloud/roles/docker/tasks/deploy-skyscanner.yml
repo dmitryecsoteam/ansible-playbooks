@@ -29,5 +29,8 @@
     name: skyscanner
     image: "skyscanner:{{ skyscanner.version }}"
     memory: 128M
+    log_driver: json-file
+    log_options:
+        max-size: 500m
     state: started
     restart_policy: "always"

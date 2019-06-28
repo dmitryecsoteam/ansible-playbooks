@@ -7,9 +7,9 @@
     - db
   tags: deploy-db
 
-- hosts: webapp
+- hosts: docker
   become: yes
   gather_facts: yes
   roles:
-    - web
-  tags: deploy-web
+    - docker
+  tags: deploy-docker

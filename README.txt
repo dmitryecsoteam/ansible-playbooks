@@ -46,3 +46,4 @@ sudo docker logs ID
 sudo docker exec -it ID /bin/ash     - open command line inside docker ALPINE
 sudo docker system prune -a     - remove stoped containers and unused images
 sudo docker images -a     - list all images in system
+sudo sh -c "du -ch /var/lib/docker/containers/*/*-json.log"     - shows size of docker logs
