@@ -1,0 +1,9 @@
+FROM maven:3.6.1-jdk-8 AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package
+
+FROM openjdk:8-alpine
+COPY --from=build /usr/src/app/target/skyscanner-{{ skyscanner.version }}.jar /usr/app/skyscanner-{{ skyscanner.version }}.jar
+ENV SPRING_DATA_MONGODB_URI=mongodb://{{ mongo_writer }}:{{ mongo_writer_password }}@{{ mongo_host }}:{{ mongo_port }}/{{ db_name }} NUMBEROFMONTHS={{ skyscanner.months }} CRONTIMER="{{ skyscanner.scheduler }}" TOKEN={{ skyscanner.token }} BASEURL={{ skyscanner.url }}
+ENTRYPOINT ["java","-Xmx96m","-jar","/usr/app/skyscanner-{{ skyscanner.version }}.jar"]

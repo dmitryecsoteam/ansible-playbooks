@@ -1,0 +1,9 @@
+FROM maven:3.6.1-jdk-8 AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package
+
+FROM openjdk:8-alpine
+COPY --from=build /usr/src/app/target/hotel-stub-{{ hotel_prices.version }}.jar /usr/app/hotel-stub-{{ hotel_prices.version }}.jar
+ENV SPRING_DATA_MONGODB_URI=mongodb://{{ mongo_writer }}:{{ mongo_writer_password }}@{{ mongo_host }}:{{ mongo_port }}/{{ db_name }} NUMBEROFMONTHS={{ hotel_prices.months }} CRONTIMER="{{ hotel_prices.scheduler }}"
+ENTRYPOINT ["java","-Xmx96m","-jar","/usr/app/hotel-stub-{{ hotel_prices.version }}.jar"]

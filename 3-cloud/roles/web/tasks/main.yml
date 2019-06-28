@@ -11,3 +11,7 @@
 - name: Deploy hotel-prices
   import_tasks: deploy-hotel-prices.yml
   tags: deploy-hotel-prices
+
+- name: Deploy skyscanner
+  import_tasks: deploy-skyscanner.yml
+  tags: deploy-skyscanner

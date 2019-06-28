@@ -1,0 +1,33 @@
+---
+
+- name: Clone git repository (deploy-skyscanner)
+  git:
+    repo: "{{ skyscanner.repository }}"
+    accept_hostkey: yes
+    clone: yes
+    dest: /home/ansible_user/skyscanner
+    version: "{{ skyscanner.version }}"
+    force: yes
+  become: no
+
+- name: Replace Dockerfile (deploy-skyscanner)
+  template:
+    src: Dockerfile-skyscanner.j2
+    dest: /home/ansible_user/skyscanner/Dockerfile
+    owner: ansible_user
+    mode: 0644
+
+- name: Build docker image (deploy-skyscanner)
+  docker_image:
+    force: yes
+    name: skyscanner
+    tag: "{{ skyscanner.version }}"
+    path: /home/ansible_user/skyscanner
+
+- name: Run built image (deploy-skyscanner)
+  docker_container:
+    name: skyscanner
+    image: "skyscanner:{{ skyscanner.version }}"
+    memory: 128M
+    state: started
+    restart_policy: "always"
