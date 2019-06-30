@@ -1,0 +1,36 @@
+---
+
+- name: Clone git repository (ecso-web)
+  git:
+    repo: "{{ ecso_web.repository }}"
+    accept_hostkey: yes
+    clone: yes
+    dest: /home/ansible_user/ecso-web
+    version: "{{ ecso_web.version }}"
+    force: no
+  become: no
+
+# - name: Login to heroku (ecso-web)
+#   expect:
+#     command: heroku login -i
+#     chdir: /home/ansible_user/ecso-web
+#     responses:
+#       Email: "{{ heroku_username }}"
+#       Password: "{{ heroku_password }}"
+#       Logged: 
+#     echo: yes
+#     timeout: 10
+#   register: output
+# - debug: var=output
+
+
+- name: Push to heroku master (ecso-web)
+  expect:
+    command: git push heroku master
+    chdir: /home/ansible_user/ecso-web
+    timeout: 300
+    responses:
+      Username: ''
+      Password: "{{ heroku_apikey }}"
+  register: output
+- debug: var=output.stdout_lines

@@ -2,14 +2,21 @@
 
 - hosts: command
   become: yes
-  gather_facts: yes
+  gather_facts: no
   roles:
     - db
   tags: deploy-db
 
 - hosts: docker
   become: yes
-  gather_facts: yes
+  gather_facts: no
   roles:
     - docker
   tags: deploy-docker
+
+- hosts: command
+  become: yes
+  gather_facts: no
+  roles:
+    - heroku
+  tags: deploy-heroku
