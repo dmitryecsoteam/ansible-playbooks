@@ -10,6 +10,18 @@
     force: no
   become: no
 
+- name: Fix git detached HEAD (ecso-web)
+  command: "{{ item }}"
+  with_items: 
+  - git branch temp
+  - git checkout temp
+  - git branch -f master temp
+  - git checkout master
+  - git branch -d temp
+  args:
+    chdir: /home/ansible_user/ecso-web
+
+
 # - name: Login to heroku (ecso-web)
 #   expect:
 #     command: heroku login -i
