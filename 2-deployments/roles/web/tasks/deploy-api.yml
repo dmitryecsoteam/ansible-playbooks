@@ -19,6 +19,7 @@
 
 - name: Build docker image (deploy-api)
   docker_image:
+    force: yes
     name: api-graphql
     tag: "{{ api_graphql.version }}"
     path: /home/ansible_user/api-graphql
