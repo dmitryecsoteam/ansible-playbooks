@@ -8,7 +8,7 @@ db:
   repository: git@bitbucket.org:ecsoteam/db_scripts.git
 
 api_graphql:
-  version: 1.4.0
+  version: 2.0.0
   repository: git@bitbucket.org:ecsoteam/api-graphql.git
 
 rotate_travels:
@@ -48,3 +48,4 @@ api_server_cors: "true"
 api_context_root: v1
 api_jwt_secret: dfs23hjkf9QSas933s
 api_jwt_expires_in: 1hr
+api_graphiql: "true"
