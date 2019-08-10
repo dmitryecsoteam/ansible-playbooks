@@ -7,7 +7,7 @@
     clone: yes
     dest: /home/ansible_user/ecso-web
     version: "{{ ecso_web.version }}"
-    force: no
+    force: yes
   become: no
 
 - name: Fix git detached HEAD (ecso-web)
@@ -21,6 +21,20 @@
   args:
     chdir: /home/ansible_user/ecso-web
 
+- name: Replace env.prod with template (ecso-web)
+  template:
+    src: env.prod.j2
+    dest: /home/ansible_user/ecso-web/env.prod
+    owner: ansible_user
+    mode: 0644
+
+- name: Add new env.prod file to git repository and commit (ecso-web)
+  command: "{{ item }}"
+  with_items: 
+  - git add env.prod
+  - git commit -m "New version"
+  args:
+    chdir: /home/ansible_user/ecso-web
 
 # - name: Login to heroku (ecso-web)
 #   expect:
@@ -35,10 +49,9 @@
 #   register: output
 # - debug: var=output
 
-
 - name: Push to heroku master (ecso-web)
   expect:
-    command: git push heroku master
+    command: git push -f heroku master
     chdir: /home/ansible_user/ecso-web
     timeout: 300
     responses:

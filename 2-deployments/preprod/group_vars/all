@@ -2,7 +2,7 @@
 env: preprod
 
 db:
-  version: 1
+  version: 2
   repository: git@bitbucket.org:ecsoteam/db_scripts.git
 
 
