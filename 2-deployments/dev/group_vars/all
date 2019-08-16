@@ -8,7 +8,7 @@ db:
   repository: git@bitbucket.org:ecsoteam/db_scripts.git
 
 api_graphql:
-  version: 2.0.8
+  version: 2.0.9
   repository: git@bitbucket.org:ecsoteam/api-graphql.git
 
 rotate_travels:
